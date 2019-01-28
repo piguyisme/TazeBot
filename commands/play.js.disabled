@@ -1,0 +1,48 @@
+const ytdl = require('ytdl-core');
+const getInfo = require('ytdl-getinfo');
+var link = 0
+exports.run = async (client, message, args) => {
+
+  //If it isn't in the guild, block it before it causes an error
+  if (message.channel.type != 'text') {
+    message.channel.send("Please run this command in the Team Tazerous discord server.").catch(console.error);
+    return;
+  }
+
+  //Check if the user is in a voice channel
+  if (!message.member.voiceChannel) return message.channel.send("Please connect to a voice channel.");
+  //If the user is not connected, it returns and tells them to join connect
+
+  //check if bot is already in a voice channel
+  if (message.guild.me.voiceChannel) return message.channel.send("Sorry, I'm already in a voice channel. Try again later.");
+
+  //Checks if the user put something to play
+  if (!args[0]) return message.channel.send("You need to tell me what to play! Ex. /play noot OR /play https://youtu.be/a4VvRWTD3Ok");
+
+  let validate = await ytdl.validateURL(args[0]);
+
+  //Check Validation
+  if (!validate) {
+    getInfo(args[1]).then(info => {
+      // info.items[0] contains information of the first search result
+      link = info.items[0].url
+    })
+  }
+  else {
+    //Set link to url input
+    link = args[0];
+  }
+  // else return message.channel.send("Sorry about that, this format is not supported yet")
+
+  //fetch video info
+  let info = await ytdl.getInfo(link);
+
+  //Store user's voice channel
+  let connection = await message.member.voiceChannel.join();
+
+  //Play song
+  let dispatcher = await connection.playStream(ytdl(link, { filter: 'audioonly' }));
+
+  //Output now playing
+  message.channel.send("Now playing: " + info.title)
+}

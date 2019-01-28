@@ -1,0 +1,33 @@
+{
+  "name": "tazebot",
+  "version": "0.1.0-beta",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "8.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piguyisme/tazebot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/piguyisme/tazebot/issues"
+  },
+  "homepage": "https://github.com/piguyisme/tazebot/wiki",
+  "dependencies": {
+    "discord.js": "^11.2.1",
+    "enmap": "^4.3.2",
+    "ytdl-getinfo": "^1.1.0",
+    "ytdl-core": "^0.26.3",
+    "node-opus": "^0.3.0",
+    "querystring": "0.2.0",
+    "ffmpeg": "0.0.4"
+  }
+}

@@ -1,0 +1,19 @@
+//Disabled until it's actually needed
+
+exports.run = (client, message, args) => {
+  let roleID = ["509952730966655008","482256253003759638",];
+  let name = ["Donor","Admin"]
+  var r;
+  var i;
+  for (r = 0; r < roleID.length; r++) {
+  let list = message.guild.roles.get(roleID[r]).members.map(m=>m.user.id);
+  let username = message.guild.roles.get(roleID[r]).members.map(m=>m.user.username);
+  let prefix = name[r] + " | "
+  for (i = 0; i < list.length; i++) {
+    let subject = message.guild.members.get(list[i]);
+    subject.setNickname(prefix + username[i]).catch(console.error);
+    console.log('Here ya go! ' + username[i]);
+  }
+  console.log(`Got ${list.length} members with that role.`);
+  }
+}

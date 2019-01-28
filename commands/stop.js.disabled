@@ -1,0 +1,13 @@
+exports.run = (client, message, args) => {
+  // if (!message.member.voiceChannel) return message.channel.send("Please connect to the same voice channel as the bot");
+
+  //If it isn't in the guild, block it before it causes an error
+  if (message.channel.type != 'text') {
+    message.channel.send("Please run this command in the Team Tazerous discord server.").catch(console.error);
+    return;
+  }
+
+  if (!message.guild.me.voiceChannel) return message.channel.send("I'm not in a voice channel right now.");
+  message.guild.me.voiceChannel.leave();
+  message.channel.send('Stopping...');
+}
